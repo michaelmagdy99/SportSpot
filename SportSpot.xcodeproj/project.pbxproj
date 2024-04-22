@@ -10,11 +10,13 @@
 		9277E400739F4D92EA0A7F79 /* Pods_SportSpot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D617E07CE6A96E53A96257C2 /* Pods_SportSpot.framework */; };
 		ECA5B5FF2BD687250062E356 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA5B5FE2BD687250062E356 /* AppDelegate.swift */; };
 		ECA5B6012BD687250062E356 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA5B6002BD687250062E356 /* SceneDelegate.swift */; };
-		ECA5B6032BD687250062E356 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA5B6022BD687250062E356 /* ViewController.swift */; };
-		ECA5B6062BD687250062E356 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECA5B6042BD687250062E356 /* Main.storyboard */; };
 		ECA5B6092BD687250062E356 /* SportSpot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECA5B6072BD687250062E356 /* SportSpot.xcdatamodeld */; };
 		ECA5B60B2BD687270062E356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECA5B60A2BD687270062E356 /* Assets.xcassets */; };
 		ECA5B60E2BD687270062E356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECA5B60C2BD687270062E356 /* LaunchScreen.storyboard */; };
+		ECDCC33F2BD6B3B00060A284 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDCC33D2BD6B3AF0060A284 /* HomeViewController.swift */; };
+		ECDCC3402BD6B3B00060A284 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECDCC33E2BD6B3B00060A284 /* HomeViewController.xib */; };
+		ECE25CFD2BD6A91B00A68783 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE25CFC2BD6A91B00A68783 /* Response.swift */; };
+		ECE25CFF2BD6A95300A68783 /* FootballResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE25CFE2BD6A95300A68783 /* FootballResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,12 +26,14 @@
 		ECA5B5FB2BD687250062E356 /* SportSpot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportSpot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECA5B5FE2BD687250062E356 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECA5B6002BD687250062E356 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ECA5B6022BD687250062E356 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		ECA5B6052BD687250062E356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ECA5B6082BD687250062E356 /* SportSpot.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SportSpot.xcdatamodel; sourceTree = "<group>"; };
 		ECA5B60A2BD687270062E356 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECA5B60D2BD687270062E356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECA5B60F2BD687270062E356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECDCC33D2BD6B3AF0060A284 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		ECDCC33E2BD6B3B00060A284 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		ECE25CFC2BD6A91B00A68783 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		ECE25CFE2BD6A95300A68783 /* FootballResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +77,11 @@
 		ECA5B5FD2BD687250062E356 /* SportSpot */ = {
 			isa = PBXGroup;
 			children = (
-				ECA5B5FE2BD687250062E356 /* AppDelegate.swift */,
-				ECA5B6002BD687250062E356 /* SceneDelegate.swift */,
-				ECA5B6022BD687250062E356 /* ViewController.swift */,
-				ECA5B6042BD687250062E356 /* Main.storyboard */,
+				ECDCC33C2BD6B38B0060A284 /* home */,
+				ECE25CF92BD6A52000A68783 /* model */,
+				ECE25CF72BD6A2D200A68783 /* local */,
+				ECE25CF62BD6A2BE00A68783 /* network */,
+				ECE25CFB2BD6A63C00A68783 /* utilits */,
 				ECA5B60A2BD687270062E356 /* Assets.xcassets */,
 				ECA5B60C2BD687270062E356 /* LaunchScreen.storyboard */,
 				ECA5B60F2BD687270062E356 /* Info.plist */,
@@ -85,13 +90,53 @@
 			path = SportSpot;
 			sourceTree = "<group>";
 		};
+		ECDCC33C2BD6B38B0060A284 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				ECDCC33D2BD6B3AF0060A284 /* HomeViewController.swift */,
+				ECDCC33E2BD6B3B00060A284 /* HomeViewController.xib */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		ECE25CF62BD6A2BE00A68783 /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		ECE25CF72BD6A2D200A68783 /* local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = local;
+			sourceTree = "<group>";
+		};
+		ECE25CF92BD6A52000A68783 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				ECE25CFC2BD6A91B00A68783 /* Response.swift */,
+				ECE25CFE2BD6A95300A68783 /* FootballResponse.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		ECE25CFB2BD6A63C00A68783 /* utilits */ = {
+			isa = PBXGroup;
+			children = (
+				ECA5B5FE2BD687250062E356 /* AppDelegate.swift */,
+				ECA5B6002BD687250062E356 /* SceneDelegate.swift */,
+			);
+			path = utilits;
+			sourceTree = "<group>";
+		};
 		F208C08F810560668B338764 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				576FB3297A9E90B59E7015EE /* Pods-SportSpot.debug.xcconfig */,
 				07C7BBBC0920EBA094F1902E /* Pods-SportSpot.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -157,7 +202,7 @@
 			files = (
 				ECA5B60E2BD687270062E356 /* LaunchScreen.storyboard in Resources */,
 				ECA5B60B2BD687270062E356 /* Assets.xcassets in Resources */,
-				ECA5B6062BD687250062E356 /* Main.storyboard in Resources */,
+				ECDCC3402BD6B3B00060A284 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,23 +256,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECA5B6092BD687250062E356 /* SportSpot.xcdatamodeld in Sources */,
-				ECA5B6032BD687250062E356 /* ViewController.swift in Sources */,
 				ECA5B5FF2BD687250062E356 /* AppDelegate.swift in Sources */,
 				ECA5B6012BD687250062E356 /* SceneDelegate.swift in Sources */,
+				ECE25CFD2BD6A91B00A68783 /* Response.swift in Sources */,
+				ECE25CFF2BD6A95300A68783 /* FootballResponse.swift in Sources */,
+				ECDCC33F2BD6B3B00060A284 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		ECA5B6042BD687250062E356 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ECA5B6052BD687250062E356 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		ECA5B60C2BD687270062E356 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -365,7 +404,6 @@
 				INFOPLIST_FILE = SportSpot/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -393,7 +431,6 @@
 				INFOPLIST_FILE = SportSpot/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
