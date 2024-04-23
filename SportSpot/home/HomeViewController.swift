@@ -64,8 +64,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Handle cell selection here
         print("Cell at index \(indexPath.item) selected")
-                
-        navigationController?.pushViewController(LeaguesViewController(), animated: true)
+        let leaugeVC = LeaguesViewController()
         
+        switch indexPath.item{
+        case 0 :
+            leaugeVC.sport = "football"
+            break
+        case 1:
+            leaugeVC.sport = "basketball"
+            break
+        case 2:
+            leaugeVC.sport = "tennis"
+            break
+        case 3:
+            leaugeVC.sport = "cricket"
+        default:
+            print("Error in passing hader URL")
+        }
+        
+        navigationController?.pushViewController(leaugeVC, animated: true)
     }
 }
