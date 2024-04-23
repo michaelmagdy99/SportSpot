@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "47560965-2C61-421D-BBEB-370BD5EBFA43"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SportSpot/home/SportsCollectionViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "SportsCollectionViewCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - 8e096f8f6837ebca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.sportImage.getter : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "85">
+               </Location>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - 551787c9927107be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.sportImage.setter : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - c4866f27202340cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.sportImage.modify : Swift.Optional&lt;__C.UIImageView&gt;"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - 1dafef2a1db2c2cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.sportImage.modify : Swift.Optional&lt;__C.UIImageView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - 5e39b26365aa0530"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.init(frame: __C.CGRect) -&gt; SportSpot.SportsCollectionViewCell"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "199">
+               </Location>
+               <Location
+                  uuid = "EC1FFBD9-3B87-4834-946A-521C3D3E6FF9 - ee877833affc3d3b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SportSpot.SportsCollectionViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;SportSpot.SportsCollectionViewCell&gt;"
+                  moduleName = "SportSpot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelmagdy/Desktop/iOS/Swift/Project%20Swift/SportSpot/SportSpot/home/SportsCollectionViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "127">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
