@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import SDWebImage
 
 class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     @IBOutlet weak var leagueTableView: UITableView!
     
+    @IBOutlet weak var sportTextTitle: UILabel!
+    var leagues: [LeagueModel] = []
+
+    
+    var sport : String?
+        
+    var activityIndicator: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,12 +27,33 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         leagueTableView.register(UINib(nibName: "LeagueCellTableViewCell", bundle: nil), forCellReuseIdentifier: "leagueCell")
 
+        leagueTableView.estimatedRowHeight = 100
+        leagueTableView.rowHeight = UITableView.automaticDimension
+
         self.leagueTableView.dataSource = self
         self.leagueTableView.delegate = self
+        
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.isHidden = false
+        
+        sportTextTitle.text = sport!.capitalized
 
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+           return 100
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchLeaguesOnTableView()
+    }
     /*
     // MARK: - Navigation
 
@@ -36,15 +66,48 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return leagues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell", for: indexPath) as! LeagueCellTableViewCell
            
-           cell.leagueName.text = "Cell \(indexPath.row)"
-           cell.leagueImage.image = UIImage(named: "Basktball")
+        let league = leagues[indexPath.row]
+        cell.leagueName.text = league.league_name ?? "Unknown League"
+        
+        
+        
+        if let imageUrlString = league.league_logo, let imageUrl = URL(string: imageUrlString) {
+              cell.leagueImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Football"))
+          } else {
+              cell.leagueImage.image = UIImage(named: "Football")
+          }
+          
+          cell.leagueImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
+          cell.leagueImage.clipsToBounds = true
+          
         return cell
     }
+
+    
+    func fetchLeaguesOnTableView() {
+        Network.shared.fetchLeagues(sportType: sport ?? "") { result in
+            switch result {
+            case .success(let leagueResponse):
+                self.leagues = leagueResponse.result!
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.leagueTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error fetching leagues: \(error.localizedDescription)")
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            }
+        }
+    }
+    
+    
 
 }

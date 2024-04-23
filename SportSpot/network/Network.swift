@@ -28,7 +28,7 @@ class Network {
                 do{
                     let jsonData = try JSONDecoder().decode(LeagueResponse.self, from: data!)
                     print(jsonData.result?[0].country_name ?? "")
-                    completion(.success(jsonData))                    
+                    completion(.success(jsonData))
                   
                 } catch {
                     print(error.localizedDescription)
