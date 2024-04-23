@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="SportSpot" customModuleProvider="target">
             <connections>
+                <outlet property="sportCollectionView" destination="ZwO-Iz-TTH" id="ipn-bo-R8Y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,16 +19,37 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEN-nL-YEz">
-                    <rect key="frame" x="175" y="384" width="46" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ZwO-Iz-TTH">
+                    <rect key="frame" x="16" y="136" width="360" height="599"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qq0-mx-a07">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Sports" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qg9-iK-0SA">
+                    <rect key="frame" x="0.0" y="75" width="393" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="GFJ-rC-40f"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ZwO-Iz-TTH" secondAttribute="bottom" constant="83" id="M84-Pa-IVX"/>
+                <constraint firstItem="ZwO-Iz-TTH" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-17" id="Roh-VR-xnZ"/>
+                <constraint firstItem="Qg9-iK-0SA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="SlP-xi-Led"/>
+                <constraint firstItem="ZwO-Iz-TTH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="aR8-Ae-vbg"/>
+                <constraint firstItem="Qg9-iK-0SA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="dmf-Ab-t9h"/>
+                <constraint firstItem="ZwO-Iz-TTH" firstAttribute="top" secondItem="Qg9-iK-0SA" secondAttribute="bottom" constant="13" id="hbB-mD-c1H"/>
+                <constraint firstAttribute="trailing" secondItem="Qg9-iK-0SA" secondAttribute="trailing" id="lAR-3d-P3P"/>
+            </constraints>
             <point key="canvasLocation" x="81.679389312977094" y="20.422535211267608"/>
         </view>
     </objects>
