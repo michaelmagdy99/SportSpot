@@ -45,37 +45,31 @@ class Network {
     }
 
     
-    func fetchFixtures(sportType:String,from dateFrom:Date?,completion: @escaping(Result<FixturesResponse,Error>) -> Void) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let currentDate = Date()
-            
-            let formattedDate = dateFormatter.string(from: currentDate)
-            let fromDate = dateFormatter.string(from: dateFrom ?? currentDate)
-            let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(fromDate)&to=\(formattedDate)")
-            
-        AF.request(url!).validate().response{
-                respon in
-                switch respon.result{
-                case .success(let data):
-                    do{
-                        let jsonData = try JSONDecoder().decode(FixturesResponse.self, from: data!)
-                        print(jsonData.result?[0].country_name ?? "")
-                        completion(.success(jsonData))
-                    
-                    } catch {
-                        print(error.localizedDescription)
-                        completion(.failure(error))
-
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
+    func fetchFixtures(sportType: String, from fromDate: Date?, to toDate: Date?, completion: @escaping(Result<FixturesResponse, Error>) -> Void) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = Date()
+        let formattedFromDate = dateFormatter.string(from: fromDate ?? currentDate)
+        let formattedToDate = dateFormatter.string(from: toDate ?? currentDate)
+        
+        
+        let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(formattedFromDate)&to=\(formattedToDate)")
+        
+        AF.request(url!).validate().response { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let jsonData = try JSONDecoder().decode(FixturesResponse.self, from: data!)
+                    completion(.success(jsonData))
+                } catch {
                     completion(.failure(error))
-
                 }
-                
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
+    }
+
 
 
 }

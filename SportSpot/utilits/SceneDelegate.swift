@@ -38,14 +38,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 tag:2)
         
         
-        let controllers = [tabViewController1,tabViewController2]
-        tabBarController.viewControllers = controllers
+//        let controllers = [tabViewController1,tabViewController2]
+//        tabBarController.viewControllers = controllers
         
         guard let myScence = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: myScence)
-        //let rootViewController = HomeViewController()
-        window?.rootViewController = UINavigationController(rootViewController: tabBarController)
+        let rootViewController = LeagueDetailsViewController()
+//        window?.rootViewController = UINavigationController(rootViewController: tabBarController)
+        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+
         window?.makeKeyAndVisible()
     }
 

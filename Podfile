@@ -12,5 +12,7 @@ target 'SportSpot' do
   pod 'Kingfisher'
   pod 'SwiftyOnboard'
   pod 'SplashScreen'
+  pod 'lottie-ios'
+
 
 end
