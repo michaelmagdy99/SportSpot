@@ -80,8 +80,40 @@ class Network {
                 completion(.failure(error))
             }
         }
+        
+    }
+    
+   
+    func fetchTeams(sportType: String, leagueId : Int, completion: @escaping(Result<TeamsResponse, Error>) -> Void){
+        let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?&met=Teams&leagueId=\(leagueId)&APIkey=\(API_KEY)")
+ 
+        AF.request(url!).validate().response{
+            respon in
+            switch respon.result{
+            case .success(let data):
+                do{
+                    let jsonData = try JSONDecoder().decode(TeamsResponse.self, from: data!)
+                    print(jsonData.result?[0].teamLogo ?? "")
+                    completion(.success(jsonData))
+                  
+                } catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+
+            }
+            
+        }
+        
     }
 
 
 
 }
+
+
+
