@@ -96,6 +96,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             case.success(let TeamsResponse):
                 self.teams = TeamsResponse.result!
                 
+                DispatchQueue.main.async {
+                    self.collection.reloadData()
+                }
             case .failure(let error):
              print("Error fetching teams: \(error.localizedDescription)")
                 
@@ -105,25 +108,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         }
     }
     
-//    func fetchLeaguesOnTableView() {
-//        Network.shared.fetchLeagues(sportType: sport ?? "") { result in
-//            switch result {
-//            case .success(let leagueResponse):
-//                self.leagues = leagueResponse.result!
-//                DispatchQueue.main.async {
-//                    self.activityIndicator.stopAnimating()
-//                    self.activityIndicator.isHidden = true
-//                    self.leagueTableView.reloadData()
-//                }
-//            case .failure(let error):
-//                print("Error fetching leagues: \(error.localizedDescription)")
-//                self.activityIndicator.stopAnimating()
-//                self.activityIndicator.isHidden = true
-//            }
-//        }
-//    }
-    
-    
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {

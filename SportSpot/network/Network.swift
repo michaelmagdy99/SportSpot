@@ -60,9 +60,9 @@ class Network {
 
         print(" network id \(leagueId)")
         
-        let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
+      //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
       
-      //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=2024-04-16&to=2024-04-30&leagueId=\(leagueId)"
+        let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=2024-04-16&to=2024-04-30&leagueId=\(leagueId)"
         
         
         
