@@ -45,6 +45,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eK-0Q-ipQ">
+                        <rect key="frame" x="12" y="109" width="124" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -58,6 +65,7 @@
             <connections>
                 <outlet property="date" destination="fXU-eN-HdK" id="KZm-5J-PjK"/>
                 <outlet property="header" destination="Ft3-mi-9da" id="C6T-ay-aTt"/>
+                <outlet property="imgtitle" destination="6eK-0Q-ipQ" id="zjT-mx-xCY"/>
                 <outlet property="team1" destination="wIY-JV-r2r" id="6wL-9g-H1a"/>
                 <outlet property="team2" destination="RAo-O7-MN6" id="5h2-0u-7Bb"/>
                 <outlet property="time" destination="tXY-dh-9th" id="o1d-1f-od8"/>
