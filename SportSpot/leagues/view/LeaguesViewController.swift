@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LeagueViewProtocol {
    
     @IBOutlet weak var leagueTableView: UITableView!
     
@@ -19,6 +19,8 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     var sport : String?
         
     var activityIndicator: UIActivityIndicatorView!
+    
+    var presenter : LeaguesPresenter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +37,16 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.center = view.center
+        activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
         activityIndicator.isHidden = false
         
         sportTextTitle.text = sport!.capitalized
-
+        
+        presenter = LeaguesPresenter()
+        presenter?.initLeaguesView(view: self)
+        presenter?.fetchLeagues(sport: sport ?? "football")
+        
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -50,10 +57,6 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
            return 100
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchLeaguesOnTableView()
-    }
     /*
     // MARK: - Navigation
 
@@ -90,21 +93,14 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     
-    func fetchLeaguesOnTableView() {
-        Network.shared.fetchLeagues(sportType: sport ?? "") { result in
-            switch result {
-            case .success(let leagueResponse):
-                self.leagues = leagueResponse.result!
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    self.leagueTableView.reloadData()
-                }
-            case .failure(let error):
-                print("Error fetching leagues: \(error.localizedDescription)")
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
-            }
+    func fetchLeaguesOnTableView(leagues:[LeagueModel]) {
+        DispatchQueue.main.async {
+            
+            self.leagues = leagues
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.leagueTableView.reloadData()
+            
         }
     }
     

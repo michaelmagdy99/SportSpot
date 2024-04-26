@@ -7,7 +7,8 @@
 import Foundation
 import Alamofire
 
-class Network {
+
+class Network : NetworkProtocol {
     
     let API_KEY = "31d6e2944895bbe12498bb819026f4ecd80edf3aac244c5309602110338e61a1"
     
@@ -22,8 +23,8 @@ class Network {
         
         let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?met=Leagues&APIkey=\(API_KEY)")
         AF.request(url!).validate().response{
-            respon in
-            switch respon.result{
+            response in
+            switch response.result{
             case .success(let data):
                 do{
                     let jsonData = try JSONDecoder().decode(LeagueResponse.self, from: data!)
@@ -33,12 +34,10 @@ class Network {
                 } catch {
                     print(error.localizedDescription)
                     completion(.failure(error))
-
                 }
             case .failure(let error):
                 print(error.localizedDescription)
                 completion(.failure(error))
-
             }
             
         }
@@ -57,7 +56,6 @@ class Network {
         let dateComponents = DateComponents(day : -3)
         guard let threeDaysAgo = calender.date(byAdding: dateComponents, to: nowDate) else { return  }
         let threeDaysAgoString = dataFormatter.string(from: threeDaysAgo)
-
         print(" network id \(leagueId)")
         
       //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
