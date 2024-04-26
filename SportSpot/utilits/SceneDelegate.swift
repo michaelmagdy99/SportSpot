@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let myScence = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: myScence)
-        let rootViewController = LeagueDetailsViewController()
+        let rootViewController = LeaguesDetailsViewController()
 //        window?.rootViewController = UINavigationController(rootViewController: tabBarController)
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
 
