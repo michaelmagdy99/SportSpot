@@ -109,5 +109,14 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let leagueIndex = leagues[indexPath.row]
+        let detailsVC = LeaguesDetailsViewController()
+        detailsVC.sportType = sport
+        detailsVC.leagueID = leagueIndex.league_key
+        
+        navigationController?.pushViewController(detailsVC, animated: true)
+    }
 
 }

@@ -45,17 +45,29 @@ class Network {
     }
 
     
-    func fetchFixtures(sportType: String, from fromDate: Date?, to toDate: Date?, completion: @escaping(Result<FixturesResponse, Error>) -> Void) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let currentDate = Date()
-        let formattedFromDate = dateFormatter.string(from: fromDate ?? currentDate)
-        let formattedToDate = dateFormatter.string(from: toDate ?? currentDate)
+    func fetchFixtures(sportType: String, leagueId : Int, completion: @escaping(Result<FixturesResponse, Error>) -> Void) {
         
         
-        let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(formattedFromDate)&to=\(formattedToDate)")
+        let nowDate = Date()
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "yyyy-MM-dd"
+        let currentDateString = dataFormatter.string(from: nowDate)
         
-        AF.request(url!).validate().response { response in
+        let calender = Calendar.current
+        let dateComponents = DateComponents(day : -3)
+        guard let threeDaysAgo = calender.date(byAdding: dateComponents, to: nowDate) else { return  }
+        let threeDaysAgoString = dataFormatter.string(from: threeDaysAgo)
+
+        print(" network id \(leagueId)")
+        
+        let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
+      
+      //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=2024-04-16&to=2024-04-30&leagueId=\(leagueId)"
+        
+        
+        
+        
+        AF.request(url).validate().response { response in
             switch response.result {
             case .success(let data):
                 do {

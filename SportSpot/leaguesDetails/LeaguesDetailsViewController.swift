@@ -9,9 +9,14 @@ import UIKit
 import SDWebImage
 
 class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    var fixture : [FixturesModel] = []
     var upcomingFixtures: [FixturesModel] = []
     var latestMatch: [FixturesModel] = []
     var activityIndicator: UIActivityIndicatorView!
+    
+    var sportType : String?
+    var leagueID : Int?
 
     @IBOutlet weak var collection: UICollectionView!
 
@@ -37,26 +42,41 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     }
 
     func fetchData() {
-        let currentDate = Date()
-        let threeDaysFromNow = currentDate.adding(days: 3)
-        let threeDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!
-        let endOfDay = Calendar.current.startOfDay(for: currentDate).addingTimeInterval(-1)
 
-        Network.shared.fetchFixtures(sportType: "football", from: threeDaysAgo, to: threeDaysFromNow) { result in
+        print("\(leagueID ?? 488978951)")
+        Network.shared.fetchFixtures(sportType: sportType!, leagueId: leagueID!) { result in
+            
             switch result {
             case .success(let fixture):
+                
                 if let fixtures = fixture.result {
-                    self.upcomingFixtures = fixtures
+                    self.fixture = fixtures
 
+                    for result in fixtures{
+                        if result.event_ft_result == ""{
+                            self.upcomingFixtures.append(result)
+                        }else{
+                            self.latestMatch.append(result)
+                        }
+                    }
+                    
+                    
+                    
+                    /*
                     if let latest = fixtures.last {
                         self.latestMatch = [latest]
                         print("Latest match date: \(latest.event_date)")
                     }
+                    
+                    */
                 }
+                
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.isHidden = true
                     self.collection.reloadData()
+                    print(self.upcomingFixtures.count)
+                    print(self.latestMatch.count)
                 }
             case .failure(let error):
                 print("Error fetching leagues: \(error.localizedDescription)")
@@ -66,6 +86,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             print("Success")
         }
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -192,7 +214,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
 
         let item = NSCollectionLayoutItem(layoutSize: itemsSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .absolute(180))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150))
 
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -204,13 +226,15 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     func drawToTheCenterSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150))
+        
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-
-        section.orthogonalScrollingBehavior = .continuous
+        
+        section.orthogonalScrollingBehavior = .none
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         section.interGroupSpacing = 20
 
