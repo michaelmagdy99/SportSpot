@@ -8,10 +8,8 @@
 import Foundation
 
 struct TeamDetailsResponse : Codable{
-    
     let success: Int?
     let result: [TeamDetailsModel]?
-
 }
 
 struct TeamDetailsModel :Codable{

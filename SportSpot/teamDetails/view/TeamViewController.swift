@@ -34,17 +34,15 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         view.addSubview(activityIndicator)
         activityIndicator.isHidden = false
         
-        
-        
         playersTableView.estimatedRowHeight = 100
         playersTableView.rowHeight = UITableView.automaticDimension
-
+            
         self.playersTableView.dataSource = self
         self.playersTableView.delegate = self
         
         presenter = TeamPresenter()
         presenter?.initLeaguesView(view: self)
-        presenter?.fetchPlayers(sport: "football" , teamId: 10)
+        presenter?.fetchPlayers(sport: sport!, teamId: teamId!)
         
     }
 
@@ -90,6 +88,7 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
           }
           
         */
+        
           cell.playerImage.layer.cornerRadius = cell.playerImage.bounds.width / 2
           cell.playerImage.clipsToBounds = true
        

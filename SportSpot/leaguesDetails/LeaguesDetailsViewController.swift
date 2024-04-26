@@ -283,7 +283,14 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+        let teamIndex = teams[indexPath.row]
+
+        let teamDetailsVC = TeamViewController()
+        teamDetailsVC.teamId = teamIndex.teamKey
+        teamDetailsVC.sport = sportType
         
+        navigationController?.pushViewController(teamDetailsVC, animated: true)
     }
 
 }
