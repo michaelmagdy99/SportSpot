@@ -10,7 +10,7 @@ import SDWebImage
 
 class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var upcomingFixtures: [FixturesModel] = []
-    var latestMatch: FixturesModel?
+    var latestMatch: [FixturesModel] = []
     var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var collection: UICollectionView!
@@ -47,8 +47,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             case .success(let fixture):
                 if let fixtures = fixture.result {
                     self.upcomingFixtures = fixtures
+
                     if let latest = fixtures.last {
-                        self.latestMatch = latest
+                        self.latestMatch = [latest]
+                        print("Latest match date: \(latest.event_date)")
                     }
                 }
                 DispatchQueue.main.async {
@@ -64,13 +66,21 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             print("Success")
         }
     }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return upcomingFixtures.count
-    }
+        switch section {
+        case 0:
+            return upcomingFixtures.count
+        case 1:
+            return !latestMatch.isEmpty ? latestMatch.count : 0
+        default:
+            return 0
+        }
+    
+}
+
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,40 +89,101 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         switch indexPath.section {
         case 0:
             let fixture = upcomingFixtures[indexPath.row]
-            configureCell(for: cell, with: fixture)
+            if let imageUrlString = fixture.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+                cell.team1.sd_setImage(with: imageUrl)
+            } else {
+                cell.team1.image = UIImage(named: "Image")
+            }
+            cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+            cell.team1.clipsToBounds = true
+            
+            if let imageUrlString = fixture.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+                cell.team2.sd_setImage(with: imageUrl)
+            } else {
+                cell.team2.image = UIImage(named: "Image")
+            }
+            cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+            cell.team2.clipsToBounds = true
+            
+            cell.date.text = fixture.event_date
+            cell.time.text = fixture.event_time
             print("aaaaaaaa")
         case 1:
-            if let latestMatch = latestMatch {
-                configureCell(for: cell, with: latestMatch)
-                print("zzzzz")
-            }
+             let latestMatch = latestMatch [indexPath.row]
+         //   if let latestMatch = latestMatch.first {
+                if let imageUrlString = latestMatch.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team1.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team1.image = UIImage(named: "Image")
+                }
+                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team1.clipsToBounds = true
+                
+                if let imageUrlString = latestMatch.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team2.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team2.image = UIImage(named: "Image")
+                }
+                cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team2.clipsToBounds = true
+                
+                cell.date.text = latestMatch.event_date
+                cell.time.text = latestMatch.event_ft_result
         default:
             break
-        }
+            }
+                print("zzzzz")
+    
         
         return cell
     }
 
-    func configureCell(for cell: LeaguesDetailsCollectionViewCell, with fixture: FixturesModel) {
-        if let imageUrlString = fixture.away_team_logo, let imageUrl = URL(string: imageUrlString) {
-            cell.team1.sd_setImage(with: imageUrl)
-        } else {
-            cell.team1.image = UIImage(named: "Image")
-        }
-        cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
-        cell.team1.clipsToBounds = true
-        
-        if let imageUrlString = fixture.home_team_logo, let imageUrl = URL(string: imageUrlString) {
-            cell.team2.sd_setImage(with: imageUrl)
-        } else {
-            cell.team2.image = UIImage(named: "Image")
-        }
-        cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
-        cell.team2.clipsToBounds = true
-        
-        cell.date.text = fixture.event_date
-        cell.time.text = fixture.event_time
-    }
+//    func configureCell(for cell: LeaguesDetailsCollectionViewCell, with fixture: FixturesModel) {
+//        switch cell.tag {
+//        case 0:
+//            if let imageUrlString = fixture.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+//                cell.team1.sd_setImage(with: imageUrl)
+//            } else {
+//                cell.team1.image = UIImage(named: "Image")
+//            }
+//            cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+//            cell.team1.clipsToBounds = true
+//
+//            if let imageUrlString = fixture.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+//                cell.team2.sd_setImage(with: imageUrl)
+//            } else {
+//                cell.team2.image = UIImage(named: "Image")
+//            }
+//            cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+//            cell.team2.clipsToBounds = true
+//
+//            cell.date.text = fixture.event_date
+//            cell.time.text = fixture.event_time
+//        case 1:
+//            if let latestMatch = latestMatch.first {
+//                if let imageUrlString = latestMatch.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+//                    cell.team1.sd_setImage(with: imageUrl)
+//                } else {
+//                    cell.team1.image = UIImage(named: "Image")
+//                }
+//                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+//                cell.team1.clipsToBounds = true
+//
+//                if let imageUrlString = latestMatch.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+//                    cell.team2.sd_setImage(with: imageUrl)
+//                } else {
+//                    cell.team2.image = UIImage(named: "Image")
+//                }
+//                cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+//                cell.team2.clipsToBounds = true
+//
+//                cell.date.text = latestMatch.event_date
+//                cell.time.text = latestMatch.event_ft_result
+//            }
+//        default:
+//            break
+//        }
+//    }
 
 
     // compositional Part
