@@ -280,5 +280,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         }
         collection.collectionViewLayout = layout
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 
 }

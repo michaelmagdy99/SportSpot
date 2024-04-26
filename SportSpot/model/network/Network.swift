@@ -111,6 +111,30 @@ class Network : NetworkProtocol {
 
 
 
+    func fetchTeamDetails(sportType:String ,teamId: Int, completion: @escaping (Result<TeamDetailsResponse, Error>) -> Void) {
+        let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?&met=Teams&teamId=\(teamId)&APIkey=\(API_KEY)")
+ 
+        AF.request(url!).validate().response{
+            respon in
+            switch respon.result{
+            case .success(let data):
+                do{
+                    let jsonData = try JSONDecoder().decode(TeamDetailsResponse.self, from: data!)
+                    completion(.success(jsonData))
+                  
+                } catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
+
+            }
+            
+        }
+    }
 }
 
 
