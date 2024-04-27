@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TeamViewController" customModule="SportSpot" customModuleProvider="target">
             <connections>
                 <outlet property="playersTableView" destination="DM0-ud-DDv" id="DjI-DY-GhJ"/>
+                <outlet property="teamImage" destination="c1J-XB-oT0" id="MG9-Et-Cn8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

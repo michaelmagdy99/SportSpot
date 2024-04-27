@@ -285,12 +285,24 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
         let teamIndex = teams[indexPath.row]
-
-        let teamDetailsVC = TeamViewController()
-        teamDetailsVC.teamId = teamIndex.teamKey
-        teamDetailsVC.sport = sportType
-        
-        navigationController?.pushViewController(teamDetailsVC, animated: true)
+        switch indexPath.section {
+        case 0 :
+            print("section 0")
+            break
+        case 1 :
+            print("section 1")
+            break
+        case 2:
+            let teamDetailsVC = TeamViewController()
+            teamDetailsVC.teamId = teamIndex.teamKey
+            teamDetailsVC.sport = sportType
+            print("team id in league : \(teamIndex.teamKey)")
+            navigationController?.pushViewController(teamDetailsVC, animated: true)
+            break
+        default:
+            print("NO SECTION HERE")
+        }
+    
     }
 
 }

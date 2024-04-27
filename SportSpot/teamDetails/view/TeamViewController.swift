@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TeamViewProtocol {
     
+    @IBOutlet weak var teamImage: UIImageView!
     @IBOutlet weak var playersTableView: UITableView!
-    var playes: [TeamDetailsModel] = []
+    var teamPlayes: [TeamDetailsModel] = []
 
 
     var activityIndicator: UIActivityIndicatorView!
@@ -42,7 +44,9 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         presenter = TeamPresenter()
         presenter?.initLeaguesView(view: self)
-        presenter?.fetchPlayers(sport: sport!, teamId: teamId!)
+        print("team id : \(teamId ?? 80)")
+        print("sport : \(sport ?? "football")")
+        presenter?.fetchPlayers(sport: sport ?? "football", teamId: teamId ?? 80)
         
     }
 
@@ -68,7 +72,7 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playes.count
+        return teamPlayes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,18 +80,21 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as! TeamTableViewCell
         
         
-        let player = playes[indexPath.row]
-        cell.playerName.text =  ""  //player.league_name ?? "Unknown League"
+        let team = teamPlayes[indexPath.row]
+          var playerNames = ""
         
+        for player in team.players! {
+            if let playerName = player.player_name {
+                   playerNames += playerName + "\n"
+               }
+           }
         
-        /*
-        if let imageUrlString = league.league_logo, let imageUrl = URL(string: imageUrlString) {
-              cell.leagueImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Football"))
-          } else {
-              cell.leagueImage.image = UIImage(named: "Football")
-          }
+        cell.playerName.text = playerNames
           
-        */
+        if let firstPlayerImage = team.players?.first?.player_image {
+              cell.playerImage.sd_setImage(with: URL(string: firstPlayerImage), placeholderImage: UIImage(named: "Football"))
+          }
+        
         
           cell.playerImage.layer.cornerRadius = cell.playerImage.bounds.width / 2
           cell.playerImage.clipsToBounds = true
@@ -99,10 +106,12 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         DispatchQueue.main.async {
             
-            self.playes = players
+            self.teamPlayes = players
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
             self.playersTableView.reloadData()
+            self.teamImage.sd_setImage(with: URL(string: players.last?.team_logo ?? ""), placeholderImage: UIImage(named: "Football"))
+
         }
     }
     

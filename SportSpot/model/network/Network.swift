@@ -128,7 +128,7 @@ class Network : NetworkProtocol {
 
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
                 completion(.failure(error))
 
             }
