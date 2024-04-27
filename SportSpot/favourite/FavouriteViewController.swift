@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouriteViewController: UIViewController {
+class FavouriteViewController: UIViewController ,UITableViewDataSource,UITableViewDelegate{
     
     @IBOutlet weak var favTable: UITableView!
     var activityIndicator: UIActivityIndicatorView!
@@ -16,8 +16,8 @@ class FavouriteViewController: UIViewController {
     
     func addNibFile() {
         favTable.register(UINib(nibName: "FavouriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favcell")
-//        self.favTable.dataSource = self
-//        self.favTable.delegate = self
+        self.favTable.dataSource = self
+        self.favTable.delegate = self
     }
 
     func addLoadingIcon() {
@@ -27,13 +27,13 @@ class FavouriteViewController: UIViewController {
         view.addSubview(activityIndicator)
         activityIndicator.isHidden = false
     }
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//       return 2
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//       ret 5
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
     
 
     override func viewDidLoad() {
