@@ -21,6 +21,7 @@
 		DABB71EE2BDD27F700D52BF7 /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB71ED2BDD27F700D52BF7 /* DetailsPresenter.swift */; };
 		DABB71F12BDD39C800D52BF7 /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB71EF2BDD39C800D52BF7 /* FavouriteTableViewCell.swift */; };
 		DABB71F22BDD39C800D52BF7 /* FavouriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABB71F02BDD39C800D52BF7 /* FavouriteTableViewCell.xib */; };
+		DABB71F82BDD8FE900D52BF7 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB71F72BDD8FE900D52BF7 /* CoreData.swift */; };
 		EC0ED6FF2BD8580E00B6EDA4 /* LeagueCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0ED6FD2BD8580E00B6EDA4 /* LeagueCellTableViewCell.swift */; };
 		EC0ED7002BD8580E00B6EDA4 /* LeagueCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC0ED6FE2BD8580E00B6EDA4 /* LeagueCellTableViewCell.xib */; };
 		EC2196252BD84E17007B35D2 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2196232BD84E16007B35D2 /* FavouriteViewController.swift */; };
@@ -67,6 +68,7 @@
 		DABB71ED2BDD27F700D52BF7 /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
 		DABB71EF2BDD39C800D52BF7 /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 		DABB71F02BDD39C800D52BF7 /* FavouriteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteTableViewCell.xib; sourceTree = "<group>"; };
+		DABB71F72BDD8FE900D52BF7 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		EC0ED6FD2BD8580E00B6EDA4 /* LeagueCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueCellTableViewCell.swift; sourceTree = "<group>"; };
 		EC0ED6FE2BD8580E00B6EDA4 /* LeagueCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeagueCellTableViewCell.xib; sourceTree = "<group>"; };
 		EC2196232BD84E16007B35D2 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		ECE25CF72BD6A2D200A68783 /* local */ = {
 			isa = PBXGroup;
 			children = (
+				DABB71F72BDD8FE900D52BF7 /* CoreData.swift */,
 			);
 			path = local;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				EC64F9932BDC64CC00544C89 /* TeamTableViewCell.swift in Sources */,
 				EC64F98D2BDC649200544C89 /* TeamViewController.swift in Sources */,
 				DA910DA42BDC08750067EBD8 /* TeamsResponse.swift in Sources */,
+				DABB71F82BDD8FE900D52BF7 /* CoreData.swift in Sources */,
 				DABB71EE2BDD27F700D52BF7 /* DetailsPresenter.swift in Sources */,
 				DA15BEFF2BD9B12C00175EC5 /* SplashViewController.swift in Sources */,
 				ECA5B6012BD687250062E356 /* SceneDelegate.swift in Sources */,

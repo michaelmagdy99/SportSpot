@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:FavLeagues+CoreDataClass.swift">
+      location = "group:SportSpot/model/local/FavLeagues+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:FavLeagues+CoreDataProperties.swift">
+      location = "group:SportSpot/model/local/FavLeagues+CoreDataProperties.swift">
    </FileRef>
    <FileRef
       location = "group:SportSpot.xcodeproj">

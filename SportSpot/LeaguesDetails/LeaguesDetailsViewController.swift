@@ -7,8 +7,12 @@
 
 import UIKit
 import SDWebImage
+import CoreData
+
 
 class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, LeaguesDetailsProtocol{
+   
+    
   
     
     
@@ -22,7 +26,37 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     var leagueID : Int?
     var teamID : Int?
    var presenter : DetailsPresenter?
+    
+    
+    var leagueName: String?
+        var leagueLogo: String?
+        var countryName: String?
+        var countryLogo: String?
+        var countryID: Int16?
+        var leagueId: Int16?
+    var context : NSManagedObjectContext?
+    var coreDataManager = CoreDataManager.shared
+      
 
+    @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
+        guard let leagueKey = leagueId,
+              let leagueName = leagueName,
+              let leagueLogo = leagueLogo else {
+            return
+        }
+        
+        let leagueData: [String: Any] = [
+            "leagueKey": leagueKey,
+            "leagueName": leagueName,
+            "leagueLogo": leagueLogo
+        ]
+        
+        CoreDataManager.shared.saveLeague(leagueData)
+        
+        let alert = UIAlertController(title: "Added to Favorites", message: "The league has been added to your favorites.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     @IBOutlet weak var collection: UICollectionView!
 
     override func viewDidLoad() {
@@ -36,6 +70,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         getTeams(teams: teams)
     }
 
+    @IBAction func addToFav(_ sender: Any) {
+    }
     func getPresenter(){
         presenter = DetailsPresenter()
         presenter?.startDetailsView(view: self)

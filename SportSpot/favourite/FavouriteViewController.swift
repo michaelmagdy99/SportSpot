@@ -7,50 +7,38 @@
 
 import UIKit
 
-class FavouriteViewController: UIViewController ,UITableViewDataSource,UITableViewDelegate{
-    
+class FavouriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var favTable: UITableView!
-    var activityIndicator: UIActivityIndicatorView!
+    var favoriteLeagues: [FavLeagues] = []
+    var coreDataManager = CoreDataManager.shared
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           favoriteLeagues = coreDataManager.fetchFavoriteLeagues()
+        addNibFile()
+       // addLoadingIcon()
+        favTable.reloadData()
+    }
 
-    
-    
     func addNibFile() {
         favTable.register(UINib(nibName: "FavouriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favcell")
-        self.favTable.dataSource = self
-        self.favTable.delegate = self
+        favTable.dataSource = self
+        favTable.delegate = self
     }
 
-    func addLoadingIcon() {
-        activityIndicator = UIActivityIndicatorView(style: .large)
-        
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        activityIndicator.isHidden = false
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return favoriteLeagues.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favcell", for: indexPath) as! FavouriteTableViewCell
+        let league = favoriteLeagues[indexPath.row]
+        cell.favLeague.text = league.leagueName
+        if let imageUrlString = league.leagueLogo, let imageUrl = URL(string: imageUrlString) {
+            cell.favImg.sd_setImage(with: imageUrl)
+        } else {
+            cell.favImg.image = UIImage(named: "Image")
+        }
+        return cell
     }
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
