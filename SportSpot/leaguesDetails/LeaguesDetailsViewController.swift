@@ -184,7 +184,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
 
         case 2:
             let team = teams[indexPath.row]
-            if let imageUrlString = team.teamLogo, let imageUrl = URL(string: imageUrlString) {
+            if let imageUrlString = team.team_logo, let imageUrl = URL(string: imageUrlString) {
                         cell.team1.sd_setImage(with: imageUrl)
                     } else {
                         cell.team1.image = UIImage(named: "Image")
@@ -192,7 +192,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                     cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
                     cell.team1.clipsToBounds = true
                    cell.header.text = "Teams"
-                   cell.imgtitle.text = team.teamName
+                   cell.imgtitle.text = team.team_name
             
 
             
@@ -294,9 +294,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             break
         case 2:
             let teamDetailsVC = TeamViewController()
-            teamDetailsVC.teamId = teamIndex.teamKey
-            teamDetailsVC.sport = sportType
-            print("team id in league : \(teamIndex.teamKey)")
+            teamDetailsVC.team = teamIndex
             navigationController?.pushViewController(teamDetailsVC, animated: true)
             break
         default:
