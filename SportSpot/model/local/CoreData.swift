@@ -4,30 +4,34 @@ import UIKit
 
 class CoreDataManager {
     static let shared = CoreDataManager()
+    static let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    static let context = appDelegate.persistentContainer.viewContext
+   static let entity = NSEntityDescription.entity(forEntityName: "FavLeagues", in: context)
     
-    private let context: NSManagedObjectContext
+    private init() {}
     
-    private init() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            fatalError("Error with context")
-        }
-        context = appDelegate.persistentContainer.viewContext
-    }
-    
-    func saveLeague(_ data: [String: Any]) {
-        let league = FavLeagues(context: context)
-        league.leagueKey = data["leagueKey"] as? Int16 ?? 0
-        league.leagueName = data["leagueName"] as? String ?? ""
-        league.leagueLogo = data["leagueLogo"] as? String ?? ""
+    static func saveLeague(league: LeagueModel, leagueType: String) {
+      
+        
+        let leagues = NSManagedObject(entity: entity!, insertInto: context)
+        leagues.setValue(league.league_key, forKey: "leagueKey")
+        leagues.setValue(league.league_name, forKey: "leagueName")
+        leagues.setValue(league.league_logo, forKey: "leagueLogo")
+//        leagues.setValue(league.country_key, forKey: "countryKey")
+//        leagues.setValue(league.country_name, forKey: "countryName")
+//        leagues.setValue(league.country_logo, forKey: "countryLogo")
+        print(league.league_name as Any)
         
         do {
-            try context.save()
+            try
+            CoreDataManager.context.save()
+            print("League saved to favorites successfully.")
         } catch {
-            print(error.localizedDescription)
+            print("Error saving league to favorites: \(error.localizedDescription)")
         }
     }
     
-    func fetchFavoriteLeagues() -> [FavLeagues] {
+    func fetchFavoriteLeagues(context: NSManagedObjectContext) -> [FavLeagues] {
         do {
             let favoriteLeagues = try context.fetch(FavLeagues.fetchRequest()) as? [FavLeagues] ?? []
             return favoriteLeagues

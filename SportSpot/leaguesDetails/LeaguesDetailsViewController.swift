@@ -21,11 +21,15 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     var latestMatch: [FixturesModel] = []
     var teams : [TeamsModel] = []
     var activityIndicator: UIActivityIndicatorView!
+    var league : LeagueModel?
     
     var sportType : String?
     var leagueID : Int?
     var teamID : Int?
    var presenter : DetailsPresenter?
+    var delegate: ReloadProtocol?
+    var leagueType:String?
+
     
     
     var leagueName: String?
@@ -35,43 +39,51 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         var countryID: Int16?
         var leagueId: Int16?
     var context : NSManagedObjectContext?
-    var coreDataManager = CoreDataManager.shared
-      
 
-    @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
-        guard let leagueKey = leagueId,
-              let leagueName = leagueName,
-              let leagueLogo = leagueLogo else {
-            return
+       
+
+        @IBOutlet weak var collection: UICollectionView!
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            addNibFile()
+            addLoadingIcon()
+            startCompositional()
+            getLatestMatches(fixtures: fixture)
+            getUpcomingFixtures(fixtures: fixture)
+            getPresenter()
+            getTeams(teams: teams)
+          
         }
-        
-        let leagueData: [String: Any] = [
-            "leagueKey": leagueKey,
-            "leagueName": leagueName,
-            "leagueLogo": leagueLogo
-        ]
-        
-        CoreDataManager.shared.saveLeague(leagueData)
-        
-        let alert = UIAlertController(title: "Added to Favorites", message: "The league has been added to your favorites.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    @IBOutlet weak var collection: UICollectionView!
+        @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
+          
+            CoreDataManager.saveLeague(league: league!, leagueType: leagueType!)
+       
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addNibFile()
-        addLoadingIcon()
-        startCompositional()
-        getLatestMatches(fixtures: fixture)
-        getUpcomingFixtures(fixtures: fixture)
-        getPresenter()
-        getTeams(teams: teams)
+        // 5- entity
+//        guard let entity = NSEntityDescription.entity(forEntityName: "FavLeagues", in: context!) else {
+//               print("Error: Unable to get entity description.")
+//               return
+//           }
+//
+//        // 6- manage object
+//        let league = NSManagedObject(entity: entity, insertInto: context)
+//        league.setValue(leagueId, forKey: "leagueKey")
+//        print()
+//        do {
+//            try context?.save()
+//            print("League saved to favorites successfully.")
+//
+//            delegate?.reload()
+//
+//
+//
+//        }catch let error as NSError {
+//            print(error.localizedDescription)
+//        }
     }
 
-    @IBAction func addToFav(_ sender: Any) {
-    }
+    
     func getPresenter(){
         presenter = DetailsPresenter()
         presenter?.startDetailsView(view: self)
@@ -94,56 +106,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         activityIndicator.isHidden = false
     }
 
-//    func fetchData() {
-//
-//        print("\(leagueID ?? 488978951)")
-//        Network.shared.fetchFixtures(sportType: sportType!, leagueId: leagueID!) { result in
-//
-//            switch result {
-//            case .success(let fixture):
-//
-//                if let fixtures = fixture.result {
-//                    self.fixture = fixtures
-//
-//                    for result in fixtures{
-//                        if result.event_ft_result == ""{
-//                            self.upcomingFixtures.append(result)
-//                        }else{
-//                            self.latestMatch.append(result)
-//                        }
-//                    }
-//
-//
-//
-//                    /*
-//                    if let latest = fixtures.last {
-//                        self.latestMatch = [latest]
-//                        print("Latest match date: \(latest.event_date)")
-//                    }
-//
-//                    */
-//                }
-//
-//                DispatchQueue.main.async {
-//                    self.activityIndicator.stopAnimating()
-//                    self.activityIndicator.isHidden = true
-//                    self.collection.reloadData()
-//                    print(self.upcomingFixtures.count)
-//                    print(self.latestMatch.count)
-//                }
-//            case .failure(let error):
-//                print("Error fetching leagues: \(error.localizedDescription)")
-//                self.activityIndicator.stopAnimating()
-//                self.activityIndicator.isHidden = true
-//            }
-//            print("Success")
-//        }
-//    }
-    
-//    func getFixtures(fixtures: [FixturesModel]) {
-//        self.fixture = fixtures
-//        self.collection.reloadData()
-//    }
+
     func getUpcomingFixtures(fixtures: [FixturesModel]) {
         self.upcomingFixtures = fixtures
         DispatchQueue.main.async {
@@ -168,23 +131,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             }
             
         }
-        //    func getTeams(){
-        //        Network.shared.fetchTeams(sportType: sportType!, leagueId: leagueID!){result in
-        //            switch result{
-        //            case.success(let TeamsResponse):
-        //                self.teams = TeamsResponse.result!
-        //
-        //                DispatchQueue.main.async {
-        //                    self.collection.reloadData()
-        //                }
-        //            case .failure(let error):
-        //             print("Error fetching teams: \(error.localizedDescription)")
-        //
-        //
-        //            }
-        //
-        //        }
-        //    }
+       
         
         
         

@@ -8,13 +8,15 @@
 import UIKit
 
 class FavouriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
     @IBOutlet weak var favTable: UITableView!
     var favoriteLeagues: [FavLeagues] = []
     var coreDataManager = CoreDataManager.shared
        
        override func viewDidLoad() {
            super.viewDidLoad()
-           favoriteLeagues = coreDataManager.fetchFavoriteLeagues()
+        //   favoriteLeagues = coreDataManager.fetchFavoriteLeagues()
         addNibFile()
        // addLoadingIcon()
         favTable.reloadData()
