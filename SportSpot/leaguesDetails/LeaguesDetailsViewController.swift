@@ -18,6 +18,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     var teams : [TeamsModel] = []
     var activityIndicator: UIActivityIndicatorView!
     var league : LeagueModel?
+    var fav : [LeagueModel] = []
     var sportType : String?
     var leagueID : Int?
     var teamID : Int?
@@ -41,6 +42,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             getUpcomingFixtures(fixtures: fixture)
             getPresenter()
             getTeams(teams: teams)
+
+            
           
         }
     

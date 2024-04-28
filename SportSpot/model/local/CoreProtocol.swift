@@ -10,5 +10,7 @@ protocol CoreProtocol
 {
   //  func reload()
    static func saveLeague(league: LeagueModel, leagueType: String)
+    static func fetchFavoriteLeagues() -> [FavLeagues]
+
 }
 
