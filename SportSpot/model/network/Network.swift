@@ -13,7 +13,7 @@ class Network : NetworkProtocol {
     let API_KEY = "31d6e2944895bbe12498bb819026f4ecd80edf3aac244c5309602110338e61a1"
     
     static let shared : Network = Network()
-
+    
     private init() {
         
     }
@@ -30,7 +30,7 @@ class Network : NetworkProtocol {
                     let jsonData = try JSONDecoder().decode(LeagueResponse.self, from: data!)
                     print(jsonData.result?[0].country_name ?? "")
                     completion(.success(jsonData))
-                  
+                    
                 } catch {
                     print(error.localizedDescription)
                     completion(.failure(error))
@@ -42,7 +42,7 @@ class Network : NetworkProtocol {
             
         }
     }
-
+    
     
     func fetchFixtures(sportType: String, leagueId : Int, completion: @escaping(Result<FixturesResponse, Error>) -> Void) {
         
@@ -58,8 +58,8 @@ class Network : NetworkProtocol {
         let threeDaysAgoString = dataFormatter.string(from: threeDaysAgo)
         print(" network id \(leagueId)")
         
-      //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
-      
+        //  let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=\(threeDaysAgoString)&to=\(currentDateString)&leagueId=\(leagueId)"
+        
         let url =  "https://apiv2.allsportsapi.com/\(sportType)/?met=Fixtures&APIkey=\(API_KEY)&from=2024-04-16&to=2024-04-30&leagueId=\(leagueId)"
         
         
@@ -81,60 +81,63 @@ class Network : NetworkProtocol {
         
     }
     
-   
+    
     func fetchTeams(sportType: String, leagueId : Int, completion: @escaping(Result<TeamsResponse, Error>) -> Void){
         let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?&met=Teams&leagueId=\(leagueId)&APIkey=\(API_KEY)")
- 
+        
         AF.request(url!).validate().response{
             respon in
             switch respon.result{
             case .success(let data):
                 do{
                     let jsonData = try JSONDecoder().decode(TeamsResponse.self, from: data!)
-                    print(jsonData.result?[0].teamLogo ?? "")
                     completion(.success(jsonData))
-                  
+                    
                 } catch {
                     print(error.localizedDescription)
                     completion(.failure(error))
-
+                    
                 }
             case .failure(let error):
                 print(error.localizedDescription)
                 completion(.failure(error))
-
+                
             }
             
         }
         
     }
-
-
-
-    func fetchTeamDetails(sportType:String ,teamId: Int, completion: @escaping (Result<TeamDetailsResponse, Error>) -> Void) {
-        let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?&met=Teams&teamId=\(teamId)&APIkey=\(API_KEY)")
- 
-        AF.request(url!).validate().response{
-            respon in
-            switch respon.result{
-            case .success(let data):
-                do{
-                    let jsonData = try JSONDecoder().decode(TeamDetailsResponse.self, from: data!)
-                    completion(.success(jsonData))
-                  
-                } catch {
-                    print(error.localizedDescription)
-                    completion(.failure(error))
-
-                }
-            case .failure(let error):
-                print(error)
-                completion(.failure(error))
-
-            }
-            
-        }
-    }
+    
+    
+    /*
+     func fetchTeamDetails(sportType:String ,teamId: Int, completion: @escaping (Result<TeamDetailsResponse, Error>) -> Void) {
+     let url = URL(string: "https://apiv2.allsportsapi.com/\(sportType)/?&met=Teams&teamId=\(teamId)&APIkey=\(API_KEY)")
+     
+     AF.request(url!).validate().response{
+     respon in
+     switch respon.result{
+     case .success(let data):
+     do{
+     let jsonData = try JSONDecoder().decode(TeamDetailsResponse.self, from: data!)
+     completion(.success(jsonData))
+     
+     } catch {
+     print(error.localizedDescription)
+     completion(.failure(error))
+     
+     }
+     case .failure(let error):
+     print(error)
+     completion(.failure(error))
+     
+     }
+     
+     }
+     }
+     
+     */
+    
+    
 }
 
 

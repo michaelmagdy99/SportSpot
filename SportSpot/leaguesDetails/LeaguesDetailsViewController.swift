@@ -172,8 +172,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.date.text = latestMatch.event_date
                 cell.time.text = latestMatch.event_final_result
                 cell.header.text = "Latest Events"
-                cell.imgtitle.text = ""
-                
+
                 
             case 2:
                 let team = teams[indexPath.row]
@@ -296,6 +295,28 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             }
             
         }
-        
+        collection.collectionViewLayout = layout
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+        let teamIndex = teams[indexPath.row]
+        switch indexPath.section {
+        case 0 :
+            print("section 0")
+            break
+        case 1 :
+            print("section 1")
+            break
+        case 2:
+            let teamDetailsVC = TeamViewController()
+            teamDetailsVC.team = teamIndex
+            navigationController?.pushViewController(teamDetailsVC, animated: true)
+            break
+        default:
+            print("NO SECTION HERE")
+        }
+    
     }
 

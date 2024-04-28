@@ -1,19 +1,30 @@
-//MARK: - Teams
+
+import Foundation
+
 struct TeamsResponse: Codable {
     let success: Int?
     let result: [TeamsModel]?
 }
 
-// MARK: - Team
 struct TeamsModel: Codable {
-    let teamKey: Int?
-    let teamName: String?
-    let teamLogo: String?
-
-
-    enum CodingKeys: String, CodingKey {
-        case teamKey = "team_key"
-        case teamName = "team_name"
-        case teamLogo = "team_logo"
-    }
+    let team_key: Int?
+    let team_name: String?
+    let team_logo: String?
+    let players: [Player]?
+    let coaches: [Coach]?
 }
+    
+    
+struct Coach: Codable {
+    let coach_name: String
+}
+
+struct Player: Codable {
+    let player_key: Int?
+    let player_image: String?
+    let player_name: String?
+    let player_number: String?
+    let player_type: String?
+}
+
+
