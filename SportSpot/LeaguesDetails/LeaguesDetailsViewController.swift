@@ -11,34 +11,22 @@ import CoreData
 
 
 class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, LeaguesDetailsProtocol{
-   
-    
-  
-    
-    
+ 
     var fixture : [FixturesModel] = []
     var upcomingFixtures: [FixturesModel] = []
     var latestMatch: [FixturesModel] = []
     var teams : [TeamsModel] = []
     var activityIndicator: UIActivityIndicatorView!
     var league : LeagueModel?
-    
     var sportType : String?
     var leagueID : Int?
     var teamID : Int?
    var presenter : DetailsPresenter?
-    var delegate: ReloadProtocol?
     var leagueType:String?
 
     
     
-    var leagueName: String?
-        var leagueLogo: String?
-        var countryName: String?
-        var countryLogo: String?
-        var countryID: Int16?
-        var leagueId: Int16?
-    var context : NSManagedObjectContext?
+   
 
        
 
@@ -55,32 +43,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
             getTeams(teams: teams)
           
         }
-        @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
-          
-            CoreDataManager.saveLeague(league: league!, leagueType: leagueType!)
-       
-
-        // 5- entity
-//        guard let entity = NSEntityDescription.entity(forEntityName: "FavLeagues", in: context!) else {
-//               print("Error: Unable to get entity description.")
-//               return
-//           }
-//
-//        // 6- manage object
-//        let league = NSManagedObject(entity: entity, insertInto: context)
-//        league.setValue(leagueId, forKey: "leagueKey")
-//        print()
-//        do {
-//            try context?.save()
-//            print("League saved to favorites successfully.")
-//
-//            delegate?.reload()
-//
-//
-//
-//        }catch let error as NSError {
-//            print(error.localizedDescription)
-//        }
+    
+        
+            @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
+                presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
     }
 
     
@@ -184,7 +150,6 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 print("aaaaaaaa")
             case 1:
                 let latestMatch = latestMatch [indexPath.row]
-                //   if let latestMatch = latestMatch.first {
                 if let imageUrlString = latestMatch.away_team_logo, let imageUrl = URL(string: imageUrlString) {
                     cell.team1.sd_setImage(with: imageUrl)
                 } else {
@@ -221,7 +186,6 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 
                 
                 
-                //  cell.team1.contentMode = .scaleAspectFit
                 
                 
             default:

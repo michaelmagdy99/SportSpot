@@ -55,4 +55,7 @@ class DetailsPresenter{
             }
         }
     }
+    func saveToCoreData(league: LeagueModel , leagueType: String){
+        CoreDataManager.saveLeague(league: league, leagueType: leagueType)
+    }
 }

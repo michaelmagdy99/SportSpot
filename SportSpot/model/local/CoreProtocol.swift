@@ -6,8 +6,9 @@
 //
 
 import Foundation
-protocol ReloadProtocol
+protocol CoreProtocol
 {
-    func reload()
+  //  func reload()
+   static func saveLeague(league: LeagueModel, leagueType: String)
 }
 

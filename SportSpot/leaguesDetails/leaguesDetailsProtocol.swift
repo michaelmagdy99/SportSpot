@@ -10,5 +10,6 @@ protocol LeaguesDetailsProtocol{
     func getTeams(teams:[TeamsModel])
     func  getUpcomingFixtures(fixtures:[FixturesModel])
     func getLatestMatches(fixtures:[FixturesModel])
+  //  func saveLeagues(leagues:LeagueModel)
 
 }

@@ -111,6 +111,8 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         let detailsVC = LeaguesDetailsViewController()
         detailsVC.sportType = sport
         detailsVC.leagueID = leagueIndex.league_key
+        detailsVC.league = leagueIndex
+        detailsVC.leagueType = sport
         
         navigationController?.pushViewController(detailsVC, animated: true)
     }

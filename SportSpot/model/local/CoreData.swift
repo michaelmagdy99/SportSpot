@@ -2,7 +2,9 @@ import Foundation
 import CoreData
 import UIKit
 
-class CoreDataManager {
+class CoreDataManager :CoreProtocol{
+    
+    
     static let shared = CoreDataManager()
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     static let context = appDelegate.persistentContainer.viewContext
