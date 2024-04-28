@@ -7,7 +7,9 @@
 
 import UIKit
 
-class FavouriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,FavProtocol {
+class FavouriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,FavProtocol , CheckNetworkDelegate {
+    
+    let checkNetwork = CheckNetwork()
     
     
     
@@ -19,32 +21,41 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
     var coreDataManager = CoreDataManager.shared
     var presenter : FavPresenter?
     var leagues: [LeagueModel] = []
-
+    
     
     var sport : String?
-
-       
-       override func viewDidLoad() {
-           super.viewDidLoad()
-          addNibFile()
-         //fetchFavoriteLeagues()
-           getPresenter()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addNibFile()
+        //fetchFavoriteLeagues()
+        getPresenter()
         fetchFav(favoriteLeagues: favoriteLeagues)
+        
+        
+
     }
+    
+    
+    
+    
     func getPresenter(){
         presenter = FavPresenter()
         presenter?.startFavView(view: self)
         presenter?.fetchFromCoreData()
     }
+    
+    
     func fetchFav(favoriteLeagues: [FavLeagues]) {
         self . favoriteLeagues = favoriteLeagues
         DispatchQueue.main.async {
             self.favTable.reloadData()
         }
     }
-   
     
-
+    
+    
     func addNibFile() {
         favTable.register(UINib(nibName: "FavouriteTableViewCell", bundle: nil), forCellReuseIdentifier: "favcell")
         favTable.dataSource = self
@@ -53,12 +64,12 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0
     }
-
-
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteLeagues.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "favcell", for: indexPath) as! FavouriteTableViewCell
         let league = favoriteLeagues[indexPath.row]
@@ -70,15 +81,55 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
         }
         return cell
     }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //check network
+        checkNetwork.delegate = self
+
         let league = favoriteLeagues[indexPath.row]
         let detailsVC = LeaguesDetailsViewController()
-        detailsVC.sportType = sport
+        detailsVC.sportType = "football"
         detailsVC.leagueID = Int(league.leagueKey)
-        
-        detailsVC.leagueType = sport
+        //detailsVC.leagueType = "sport"
         
         navigationController?.pushViewController(detailsVC, animated: true)
     }
+    
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let leagueToRemove = favoriteLeagues[indexPath.row]
+            
+            let alertController = UIAlertController(title: "Delete League", message: "Are you sure you want to delete this league?", preferredStyle: .alert)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                
+                
+                
+                self.favoriteLeagues.remove(at: indexPath.row)
+                self.presenter?.deleteFavoriteLeague(atIndex: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                
+            }
+            alertController.addAction(deleteAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func showNoNetworkAlert() {
+         let alertController = UIAlertController(title: "No Internet Connection", message: "Please check your network settings", preferredStyle: .alert)
+         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+         alertController.addAction(okAction)
+         present(alertController, animated: true, completion: nil)
+     }
+
 }

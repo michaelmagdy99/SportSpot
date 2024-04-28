@@ -13,8 +13,10 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var teamImage: UIImageView!
     @IBOutlet weak var playersTableView: UITableView!
 
+    @IBOutlet weak var teamName: UILabel!
     
-
+    @IBOutlet weak var coachName: UILabel!
+    
     var team : TeamsModel?
     
     var teamPlayes: [Player] = []
@@ -36,7 +38,8 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.teamImage.sd_setImage(with: URL(string: team?.team_logo ?? ""), placeholderImage: UIImage(named: "Football"))
         
-        
+        teamName.text = team?.team_name
+        coachName.text = team?.coaches?[0].coach_name
         playersTableView.reloadData()
 
     }
@@ -83,6 +86,12 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
           cell.playerImage.layer.cornerRadius = cell.playerImage.bounds.width / 2
           cell.playerImage.clipsToBounds = true
+        
+        
+        cell.layer.borderColor = UIColor.yellow.cgColor
+         cell.layer.borderWidth = 2
+         
+          
        
         return cell
     }

@@ -9,6 +9,10 @@ import Foundation
 class DetailsPresenter{
     var view: LeaguesDetailsProtocol?
     
+    var upcomingFixtures: [FixturesModel] = []
+    var latestMatch: [FixturesModel] = []
+    
+    
     func startDetailsView(view: LeaguesDetailsProtocol?){
         self.view = view
     }
@@ -36,19 +40,16 @@ class DetailsPresenter{
                     return
                 }
                 
-                var upcomingFixtures: [FixturesModel] = []
-                var latestMatch: [FixturesModel] = []
-                
                 for fixture in fixtures {
                     if fixture.event_final_result == "" {
-                        upcomingFixtures.append(fixture)
+                        self.upcomingFixtures.append(fixture)
                     } else {
-                        latestMatch.append(fixture)
+                        self.latestMatch.append(fixture)
                     }
                 }
                 
-                self.view?.getUpcomingFixtures(fixtures: upcomingFixtures)
-                self.view?.getLatestMatches(fixtures: latestMatch)
+                self.view?.getUpcomingFixtures(fixtures: self.upcomingFixtures)
+                self.view?.getLatestMatches(fixtures: self.latestMatch)
                 
             case .failure(let error):
                 print("Error fetching fixtures: \(error.localizedDescription)")
@@ -57,5 +58,6 @@ class DetailsPresenter{
     }
     func saveToCoreData(league: LeagueModel , leagueType: String){
         CoreDataManager.saveLeague(league: league, leagueType: leagueType)
+        FavPresenter().fetchFromCoreData()
     }
 }
