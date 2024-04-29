@@ -8,21 +8,18 @@
 import UIKit
 import SDWebImage
 
-class TeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TeamViewProtocol {
+class TeamViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var teamImage: UIImageView!
     @IBOutlet weak var playersTableView: UITableView!
-    var teamPlayes: [TeamDetailsModel] = []
 
-
-    var activityIndicator: UIActivityIndicatorView!
-   
-    var teamId : Int?
-    var sport : String?
+    @IBOutlet weak var teamName: UILabel!
     
-    var presenter : TeamPresenter?
-
+    @IBOutlet weak var coachName: UILabel!
     
+    var team : TeamsModel?
+    
+    var teamPlayes: [Player] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,24 +27,21 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         playersTableView.register(UINib(nibName: "TeamTableViewCell", bundle: nil), forCellReuseIdentifier: "playerCell")
 
-        activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.center = view.center
-        activityIndicator.startAnimating()
-        view.addSubview(activityIndicator)
-        activityIndicator.isHidden = false
         
+        teamPlayes = team?.players ?? []
+  
         playersTableView.estimatedRowHeight = 100
         playersTableView.rowHeight = UITableView.automaticDimension
             
         self.playersTableView.dataSource = self
         self.playersTableView.delegate = self
         
-        presenter = TeamPresenter()
-        presenter?.initLeaguesView(view: self)
-        print("team id : \(teamId ?? 80)")
-        print("sport : \(sport ?? "football")")
-        presenter?.fetchPlayers(sport: sport ?? "football", teamId: teamId ?? 80)
+        self.teamImage.sd_setImage(with: URL(string: team?.team_logo ?? ""), placeholderImage: UIImage(named: "Football"))
         
+        teamName.text = team?.team_name
+        coachName.text = team?.coaches?[0].coach_name
+        playersTableView.reloadData()
+
     }
 
     
@@ -81,38 +75,25 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         let team = teamPlayes[indexPath.row]
-          var playerNames = ""
         
-        for player in team.players! {
-            if let playerName = player.player_name {
-                   playerNames += playerName + "\n"
-               }
-           }
         
-        cell.playerName.text = playerNames
+        cell.playerName.text = team.player_name
           
-        if let firstPlayerImage = team.players?.first?.player_image {
+        if let firstPlayerImage = team.player_image {
               cell.playerImage.sd_setImage(with: URL(string: firstPlayerImage), placeholderImage: UIImage(named: "Football"))
           }
         
         
           cell.playerImage.layer.cornerRadius = cell.playerImage.bounds.width / 2
           cell.playerImage.clipsToBounds = true
+        
+        
+        cell.layer.borderColor = UIColor.yellow.cgColor
+         cell.layer.borderWidth = 2
+         
+          
        
         return cell
-    }
-    
-    func fetchTeamDeatilsOnTableView(players: [TeamDetailsModel]) {
-        
-        DispatchQueue.main.async {
-            
-            self.teamPlayes = players
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
-            self.playersTableView.reloadData()
-            self.teamImage.sd_setImage(with: URL(string: players.last?.team_logo ?? ""), placeholderImage: UIImage(named: "Football"))
-
-        }
     }
     
 }

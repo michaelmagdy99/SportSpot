@@ -7,8 +7,11 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CheckNetworkDelegate {
     
+    
+    let checkNetwork = CheckNetwork()
+
     
     let sportTypeList = ["Football", "Basktball", "Tennis", "Cricket"]
     let sportTypeListImage = ["Football", "Basktball", "Tennis", "Cricket"]
@@ -65,7 +68,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Handle cell selection here
         print("Cell at index \(indexPath.item) selected")
         let leaugeVC = LeaguesViewController()
-        
+        checkNetwork.delegate = self
+
         switch indexPath.item{
         case 0 :
             leaugeVC.sport = "football"
@@ -84,4 +88,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         navigationController?.pushViewController(leaugeVC, animated: true)
     }
+    
+    
+    func showNoNetworkAlert() {
+         let alertController = UIAlertController(title: "No Internet Connection", message: "Please check your network settings", preferredStyle: .alert)
+         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+         alertController.addAction(okAction)
+         present(alertController, animated: true, completion: nil)
+     }
 }

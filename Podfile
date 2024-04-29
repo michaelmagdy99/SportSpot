@@ -13,6 +13,7 @@ target 'SportSpot' do
   pod 'SwiftyOnboard'
   pod 'SplashScreen'
   pod 'lottie-ios'
+pod 'ReachabilitySwift'
 
 
 end

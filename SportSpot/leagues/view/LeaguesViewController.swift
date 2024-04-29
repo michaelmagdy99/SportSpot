@@ -24,14 +24,14 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         leagueTableView.register(UINib(nibName: "LeagueCellTableViewCell", bundle: nil), forCellReuseIdentifier: "leagueCell")
-
+        
         leagueTableView.estimatedRowHeight = 100
         leagueTableView.rowHeight = UITableView.automaticDimension
-
+        
         self.leagueTableView.dataSource = self
         self.leagueTableView.delegate = self
         
@@ -48,13 +48,23 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         presenter?.fetchLeagues(sport: sport ?? "football")
         
     }
+        
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100 + 10
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 100
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
 
     /*
@@ -88,6 +98,10 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
           
           cell.leagueImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
           cell.leagueImage.clipsToBounds = true
+        
+        cell.layer.borderColor = UIColor.yellow.cgColor
+         cell.layer.borderWidth = 2
+         
           
         return cell
     }
