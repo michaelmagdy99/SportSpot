@@ -13,6 +13,7 @@ class LeaguesDetailsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var time: UILabel!
     
+    @IBOutlet weak var club2Name: UILabel!
     @IBOutlet weak var imgtitle: UILabel!
     @IBOutlet weak var header: UILabel!
     override func awakeFromNib() {

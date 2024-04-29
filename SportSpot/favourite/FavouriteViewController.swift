@@ -87,6 +87,11 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
         
         //check network
         checkNetwork.delegate = self
+        
+        guard checkNetwork.isConnected() else {
+             showNoNetworkAlert()
+             return
+         }
 
         let league = favoriteLeagues[indexPath.row]
         let detailsVC = LeaguesDetailsViewController()

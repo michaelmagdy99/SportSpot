@@ -67,9 +67,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Handle cell selection here
         print("Cell at index \(indexPath.item) selected")
+        
         let leaugeVC = LeaguesViewController()
         checkNetwork.delegate = self
 
+        guard checkNetwork.isConnected() else {
+             showNoNetworkAlert()
+             return
+         }
+        
         switch indexPath.item{
         case 0 :
             leaugeVC.sport = "football"

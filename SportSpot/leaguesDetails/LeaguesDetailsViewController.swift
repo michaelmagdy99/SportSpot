@@ -40,20 +40,16 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         getTeams(teams: teams)
         
       
-        /*
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonTapped(_:)))
 
         navigationItem.rightBarButtonItem = addButton
 
-         */
+    
     }
     
     // add button in tool bar
     @objc func addButtonTapped(_ sender: UIBarButtonItem) {
-        presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
-    }
-    
-    @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
         presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
     }
     
@@ -83,6 +79,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     
     func getUpcomingFixtures(fixtures: [FixturesModel]) {
         self.upcomingFixtures = fixtures
+      
         print("\(self.upcomingFixtures.count)")
         DispatchQueue.main.async {
             self.activityIndicator.isHidden = true
@@ -114,11 +111,11 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return upcomingFixtures.count
+            return upcomingFixtures.isEmpty ? 1 : upcomingFixtures.count
         case 1:
-            return !latestMatch.isEmpty ? latestMatch.count : 0
+            return latestMatch.isEmpty ? 1 : latestMatch.count
         case 2:
-            return teams.count
+            return !teams.isEmpty ? teams.count : 0
         default:
             return 0
         }
@@ -136,71 +133,140 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         switch indexPath.section {
             
         case 0:
-            let fixture = upcomingFixtures[indexPath.row]
-            if let imageUrlString = fixture.away_team_logo, let imageUrl = URL(string: imageUrlString) {
-                cell.team1.sd_setImage(with: imageUrl)
-            } else {
+            
+            if upcomingFixtures.isEmpty {
+                
                 cell.team1.image = UIImage(named: "Image")
-            }
-            cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
-            cell.team1.clipsToBounds = true
-            
-            if let imageUrlString = fixture.home_team_logo, let imageUrl = URL(string: imageUrlString) {
-                cell.team2.sd_setImage(with: imageUrl)
-            } else {
                 cell.team2.image = UIImage(named: "Image")
+                cell.header.text = "No Up Coming Events"
+                cell.time.text = "N/A"
+                cell.date.text = "N/A"
+                cell.imgtitle.text = "N/A"
+                cell.club2Name.text = "N/A"
+                cell.backgroundColor = UIColor.systemGreen
+                
+            }else{
+                
+                let upComingFixture = upcomingFixtures[indexPath.row]
+                if let imageUrlString = upComingFixture.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team1.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team1.image = UIImage(named: "Image")
+                }
+                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team1.clipsToBounds = true
+                
+                if let imageUrlString = upComingFixture.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team2.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team2.image = UIImage(named: "Image")
+                }
+                cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team2.clipsToBounds = true
+                
+                cell.date.text = upComingFixture.event_date
+                cell.time.text = upComingFixture.event_time
+                cell.header.text = "Up Comming Events"
+                
+                cell.imgtitle.text = upComingFixture.event_home_team
+                cell.club2Name.text = upComingFixture.event_away_team
+                
+                cell.layer.borderColor = UIColor.white.cgColor
+                cell.layer.borderWidth = 5
+                
+                cell.backgroundColor = UIColor.systemGreen
+                
+                
+                
+                print("aaaaaaaa")
+                
+                
             }
-            cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
-            cell.team2.clipsToBounds = true
-            
-            cell.date.text = fixture.event_date
-            cell.time.text = fixture.event_time
-            cell.header.text = "Up Comming Events"
-            cell.imgtitle.text = ""
-            
-            print("aaaaaaaa")
         case 1:
             
-            let latestMatch = latestMatch [indexPath.row]
-            if let imageUrlString = latestMatch.away_team_logo, let imageUrl = URL(string: imageUrlString) {
-                cell.team1.sd_setImage(with: imageUrl)
-            } else {
+            
+            if latestMatch.isEmpty {
+                
                 cell.team1.image = UIImage(named: "Image")
-            }
-            cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
-            cell.team1.clipsToBounds = true
-            
-            if let imageUrlString = latestMatch.home_team_logo, let imageUrl = URL(string: imageUrlString) {
-                cell.team2.sd_setImage(with: imageUrl)
-            } else {
                 cell.team2.image = UIImage(named: "Image")
+                cell.header.text = "No Latest Events"
+                cell.time.text = "N/A"
+                cell.date.text = "N/A"
+                cell.imgtitle.text = "N/A"
+                cell.club2Name.text = "N/A"
+                cell.backgroundColor = UIColor.systemGreen
+                
+            }else{
+                
+                let latestMatch = latestMatch [indexPath.row]
+                if let imageUrlString = latestMatch.away_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team1.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team1.image = UIImage(named: "Image")
+                }
+                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team1.clipsToBounds = true
+                
+                if let imageUrlString = latestMatch.home_team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team2.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team2.image = UIImage(named: "Image")
+                }
+                cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team2.clipsToBounds = true
+                
+                cell.date.text = latestMatch.event_date
+                cell.time.text = latestMatch.event_final_result
+                cell.header.text = "Latest Events"
+                
+                
+                cell.imgtitle.text = latestMatch.event_home_team
+                cell.club2Name.text = latestMatch.event_away_team
+                
+                cell.layer.borderColor = UIColor.white.cgColor
+                cell.layer.borderWidth = 5
+                
+                cell.backgroundColor = UIColor.systemGreen
+                
+                
+                print("yyyy")
+                
             }
-            cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
-            cell.team2.clipsToBounds = true
-            
-            cell.date.text = latestMatch.event_date
-            cell.time.text = latestMatch.event_final_result
-            cell.header.text = "Latest Events"
             
             
         case 2:
-            let team = teams[indexPath.row]
-            if let imageUrlString = team.team_logo, let imageUrl = URL(string: imageUrlString) {
-                cell.team1.sd_setImage(with: imageUrl)
-            } else {
+            
+            if teams.isEmpty {
+                
                 cell.team1.image = UIImage(named: "Image")
+                cell.team2.image = UIImage(named: "Image")
+                cell.header.text = "No Up Coming Events"
+                cell.time.text = "N/A"
+                cell.date.text = "N/A"
+                cell.imgtitle.text = "N/A"
+                cell.club2Name.text = "N/A"
+                cell.backgroundColor = UIColor.systemGreen
+                
+            }else{
+                let team = teams[indexPath.row]
+                if let imageUrlString = team.team_logo, let imageUrl = URL(string: imageUrlString) {
+                    cell.team1.sd_setImage(with: imageUrl)
+                } else {
+                    cell.team1.image = UIImage(named: "Image")
+                }
+                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team1.clipsToBounds = true
+                cell.header.text = "Teams"
+                cell.imgtitle.text = team.team_name
+                
+                cell.backgroundColor = UIColor.white
+                
+                print("zzzzz")
+                
             }
-            cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
-            cell.team1.clipsToBounds = true
-            cell.header.text = "Teams"
-            cell.imgtitle.text = team.team_name
-        
         default:
-            let backgroundImg = UIImageView(image: UIImage(named: "Image 1"))
-            backgroundImg.contentMode = .scaleAspectFill
-            collection.backgroundView = backgroundImg
+                print("NO Section")
         }
-        print("zzzzz")
         
         
         return cell
@@ -219,6 +285,11 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         let section = NSCollectionLayoutSection(group: group)
         
         section.orthogonalScrollingBehavior = .continuous
+        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+        section.interGroupSpacing = 20
+        
+        
         return section
     }
     
@@ -241,11 +312,12 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     }
     
     func drawToTheBottomSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalHeight(0.5))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.5))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.5))
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(0.4))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)

@@ -36,10 +36,27 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.playersTableView.dataSource = self
         self.playersTableView.delegate = self
         
-        self.teamImage.sd_setImage(with: URL(string: team?.team_logo ?? ""), placeholderImage: UIImage(named: "Football"))
         
-        teamName.text = team?.team_name
-        coachName.text = team?.coaches?[0].coach_name
+        
+        if teamPlayes.isEmpty {
+             let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.playersTableView.bounds.size.width, height: self.playersTableView.bounds.size.height))
+             noDataLabel.text = "No players available"
+             noDataLabel.textAlignment = .center
+             noDataLabel.textColor = .gray
+             self.playersTableView.backgroundView = noDataLabel
+            
+            self.teamImage.sd_setImage(with: URL(string: team?.team_logo ?? ""), placeholderImage: UIImage(named: "Image"))
+
+            teamName.text = "No Team Name available "
+            coachName.text = "No Caoch Name available"
+        
+         } else {
+             self.teamImage.sd_setImage(with: URL(string: team?.team_logo ?? ""), placeholderImage: UIImage(named: "Image"))
+
+             teamName.text = team?.team_name
+             coachName.text = team?.coaches?[0].coach_name
+         }
+        
         playersTableView.reloadData()
 
     }
@@ -88,10 +105,8 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
           cell.playerImage.clipsToBounds = true
         
         
-        cell.layer.borderColor = UIColor.yellow.cgColor
-         cell.layer.borderWidth = 2
-         
-          
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 5
        
         return cell
     }
