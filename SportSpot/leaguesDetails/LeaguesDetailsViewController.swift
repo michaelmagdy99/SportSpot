@@ -25,6 +25,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     var teamID : Int?
     var presenter : DetailsPresenter?
     var leagueType:String?
+    var delegate:FavProtocol?
     
     
     @IBOutlet weak var collection: UICollectionView!
@@ -38,6 +39,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         getLatestMatches(fixtures: fixture)
         getUpcomingFixtures(fixtures: fixture)
         getTeams(teams: teams)
+       // delegate?.reload()
         
       
         /*
@@ -48,10 +50,16 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
          */
     }
     
-    // add button in tool bar
-    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
-        presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
+    override func viewDidAppear(_ animated: Bool) {
+        delegate?.reload()
+
     }
+   
+    
+    // add button in tool bar
+//    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
+//        presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
+//    }
     
     @IBAction func addToFavoritesButtonTapped(_ sender: UIButton) {
         presenter?.saveToCoreData(league: league!, leagueType: leagueType!)

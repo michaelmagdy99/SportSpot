@@ -8,6 +8,8 @@
 import UIKit
 
 class FavouriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,FavProtocol , CheckNetworkDelegate {
+  
+    
     
     let checkNetwork = CheckNetwork()
     
@@ -25,18 +27,34 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
     
     var sport : String?
     
+    @IBOutlet weak var backGroundImg: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addNibFile()
         //fetchFavoriteLeagues()
-        getPresenter()
-        fetchFav(favoriteLeagues: favoriteLeagues)
+        //reload()
+       // getPresenter()
+       fetchFav(favoriteLeagues: favoriteLeagues)
         
         
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        getPresenter()
+        backGroundImg.image = UIImage(named: "Image 1")
+    }
     
+
+    override func viewDidAppear(_ animated: Bool) {
+        reload()
+    }
+    func reload() {
+        DispatchQueue.main.async {
+            self.favTable.reloadData()
+        }
+    }
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     
     
@@ -49,9 +67,11 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
     
     func fetchFav(favoriteLeagues: [FavLeagues]) {
         self . favoriteLeagues = favoriteLeagues
-        DispatchQueue.main.async {
-            self.favTable.reloadData()
-        }
+        reload()
+
+       backGroundImg.isHidden = !favoriteLeagues.isEmpty
+
+       
     }
     
     
@@ -62,11 +82,15 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
         favTable.delegate = self
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0
+        return 110.0
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(favoriteLeagues.count)
         return favoriteLeagues.count
     }
     
@@ -79,6 +103,9 @@ class FavouriteViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cell.favImg.image = UIImage(named: "Image")
         }
+        
+        cell.favImg.layer.cornerRadius = cell.favImg.bounds.width / 2
+        cell.favImg.clipsToBounds = true
         return cell
     }
     

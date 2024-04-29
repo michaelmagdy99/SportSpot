@@ -9,4 +9,5 @@ import Foundation
 protocol FavProtocol
 {
     func fetchFav(favoriteLeagues: [FavLeagues])
+    func reload()
 }
