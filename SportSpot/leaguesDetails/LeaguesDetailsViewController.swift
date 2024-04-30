@@ -57,9 +57,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
    
     
     // add button in tool bar
-//    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
-//        presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
-//    }
+    @objc func addButtonTapped(_ sender: UIBarButtonItem) {
+        presenter?.saveToCoreData(league: league!, leagueType: leagueType!)
+    }
     
     
     func getPresenter(){
