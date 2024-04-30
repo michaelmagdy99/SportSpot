@@ -29,9 +29,15 @@ class CheckNetwork {
     
     @objc func networkChanged(_ notification: Notification) {
         let reachability = notification.object as! Reachability
-        if reachability.connection == .none {
+        if reachability.connection == .unavailable {
             delegate?.showNoNetworkAlert()
+        }else {
+            print("Conntected")
         }
+    }
+    
+    func isConnected() -> Bool {
+        return reachability.connection != .unavailable
     }
     
     deinit {

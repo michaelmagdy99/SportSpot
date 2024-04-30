@@ -39,12 +39,13 @@ class DetailsPresenter{
                     print("Error: No fixtures")
                     return
                 }
+                print("\(fixtures[0].event_ft_result)")
                 
-                for fixture in fixtures {
-                    if fixture.event_final_result == "" {
-                        self.upcomingFixtures.append(fixture)
+                for result in fixtures {
+                    if result.event_ft_result == "" {
+                        self.upcomingFixtures.append(result)
                     } else {
-                        self.latestMatch.append(fixture)
+                        self.latestMatch.append(result)
                     }
                 }
                 
@@ -56,6 +57,8 @@ class DetailsPresenter{
             }
         }
     }
+
+    
     func saveToCoreData(league: LeagueModel , leagueType: String){
         CoreDataManager.saveLeague(league: league, leagueType: leagueType)
         FavPresenter().fetchFromCoreData()

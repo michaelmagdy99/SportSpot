@@ -52,7 +52,7 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 + 10
+        return 110
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -91,17 +91,18 @@ class LeaguesViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         if let imageUrlString = league.league_logo, let imageUrl = URL(string: imageUrlString) {
-              cell.leagueImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Football"))
+              cell.leagueImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "Image"))
           } else {
-              cell.leagueImage.image = UIImage(named: "Football")
+              cell.leagueImage.image = UIImage(named: "Image")
           }
           
           cell.leagueImage.layer.cornerRadius = cell.leagueImage.bounds.width / 2
           cell.leagueImage.clipsToBounds = true
         
-        cell.layer.borderColor = UIColor.yellow.cgColor
-         cell.layer.borderWidth = 2
-         
+        
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 5
+       
           
         return cell
     }
