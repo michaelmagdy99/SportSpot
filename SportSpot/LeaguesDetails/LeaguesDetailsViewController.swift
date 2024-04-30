@@ -151,7 +151,11 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.date.text = "N/A"
                 cell.imgtitle.text = "N/A"
                 cell.club2Name.text = "N/A"
-                cell.backgroundColor = UIColor.systemGreen
+                cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team2.clipsToBounds = true
+                cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
+                cell.team1.clipsToBounds = true
+                cell.backgroundColor = UIColor.systemMint
                 
             }else{
                 
@@ -161,6 +165,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 } else {
                     cell.team1.image = UIImage(named: "Image")
                 }
+                
                 cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
                 cell.team1.clipsToBounds = true
                 
@@ -182,7 +187,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.layer.borderColor = UIColor.white.cgColor
                 cell.layer.borderWidth = 5
                 
-                cell.backgroundColor = UIColor.systemGreen
+                cell.backgroundColor = UIColor.systemMint
                 
                 
                 
@@ -202,7 +207,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.date.text = "N/A"
                 cell.imgtitle.text = "N/A"
                 cell.club2Name.text = "N/A"
-                cell.backgroundColor = UIColor.systemGreen
+                cell.backgroundColor = UIColor.systemMint
                 
             }else{
                 
@@ -234,7 +239,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.layer.borderColor = UIColor.white.cgColor
                 cell.layer.borderWidth = 5
                 
-                cell.backgroundColor = UIColor.systemGreen
+               cell.backgroundColor = UIColor.systemMint
                 
                 
                 print("yyyy")
@@ -253,7 +258,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.date.text = "N/A"
                 cell.imgtitle.text = "N/A"
                 cell.club2Name.text = "N/A"
-                cell.backgroundColor = UIColor.systemGreen
+                cell.backgroundColor = UIColor.systemMint
                 
             }else{
                 let team = teams[indexPath.row]
@@ -267,7 +272,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.header.text = "Teams"
                 cell.imgtitle.text = team.team_name
                 
-                cell.backgroundColor = UIColor.white
+                cell.backgroundColor = UIColor.systemMint
                 
                 print("zzzzz")
                 
