@@ -12,9 +12,6 @@ struct FixturesResponse :Codable {
     let success:Int?
     let result:[FixturesModel]?
 }
-
-
-
 struct FixturesModel: Codable {
     let event_key: Int?
     let event_date, event_time, event_home_team: String?
@@ -35,9 +32,11 @@ struct FixturesModel: Codable {
     let goalscorers: [Goalscorer]?
     let substitutes: [Substitute]?
     let cards: [Card]?
-    let lineups: Lineups?
     let statistics: [Statistic]?
 }
+
+
+
 
 
 struct Card: Codable {
@@ -57,19 +56,6 @@ struct Goalscorer: Codable {
     let away_assist, away_assist_id, info, info_time: String?
 
     
-}
-
-struct Lineups: Codable {
-    let home_team, away_team: Team?
-}
-
-struct Team: Codable {
-    let starting_lineups, substitutes: [StartingLineup]?
-    let coaches: [Coach]?
-}
-
-struct Coach: Codable {
-    let coache: String?
 }
 
 struct StartingLineup: Codable {
