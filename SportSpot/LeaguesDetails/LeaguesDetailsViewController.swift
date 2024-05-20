@@ -32,6 +32,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         getPresenter()
         addNibFile()
         addLoadingIcon()
@@ -42,7 +44,6 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
        // delegate?.reload()
         
       
-        
         let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonTapped(_:)))
 
         navigationItem.rightBarButtonItem = addButton
@@ -71,6 +72,9 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
     }
     
     func addNibFile() {
+        
+        collection.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderView")
+
         collection.register(UINib(nibName: "LeaguesDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "leagueDcell")
         
         self.collection.dataSource = self
@@ -147,10 +151,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Up Coming Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text = "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
                 cell.team2.clipsToBounds = true
                 cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
@@ -195,7 +199,8 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 
                 
             }
-        case 1:
+            
+            case 1:
             
             
             if latestMatch.isEmpty {
@@ -203,10 +208,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Latest Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text =  "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.backgroundColor = UIColor.systemMint
                 
             }else{
@@ -246,7 +251,7 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 
             }
             
-            
+        
         case 2:
             
             if teams.isEmpty {
@@ -254,10 +259,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Up Coming Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text =  "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.backgroundColor = UIColor.systemMint
                 
             }else{
@@ -301,7 +306,11 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         section.interGroupSpacing = 20
-        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+                                let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                                
+                                section.boundarySupplementaryItems = [headerSupplementary]
+    
         
         return section
     }
@@ -321,6 +330,11 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         section.interGroupSpacing = 20
         
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+                                let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                                
+                                section.boundarySupplementaryItems = [headerSupplementary]
+    
         return section
     }
     
@@ -337,6 +351,12 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
         
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+                                let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                                
+                                section.boundarySupplementaryItems = [headerSupplementary]
+    
         return section
     }
     
@@ -383,5 +403,46 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
         }
         
     }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+               guard kind == UICollectionView.elementKindSectionHeader else {
+                   return UICollectionReusableView()
+               }
+               
+               let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderView", for: indexPath) as! SectionHeaderView
+               
+               // Customize the header view based on the section
+               switch indexPath.section {
+               case 0:
+                   if upcomingFixtures.count == 0{
+                       headerView.titleLabel.text = "No Upcoming Matches"
+                   }else{
+                       headerView.titleLabel.text = "Upcoming Matches"
+                   }
+               case 1:
+                   if latestMatch.count == 0 {
+                       headerView.titleLabel.text = "No Latest Matches"
+
+                   }else{
+                       headerView.titleLabel.text = "Latest Matches"
+                   }
+               case 2:
+                   if teams.count == 0 {
+                       headerView.titleLabel.text = "No Teams"
+                   }else{
+                       headerView.titleLabel.text = "Teams"
+                   }
+               default:
+                   headerView.titleLabel.text = ""
+               }
+               
+               return headerView
+           }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+                return CGSize(width: collectionView.bounds.width, height: 50)
+            }
 }
 

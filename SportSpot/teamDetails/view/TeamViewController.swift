@@ -106,6 +106,8 @@ class TeamViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         cell.layer.borderColor = UIColor.white.cgColor
+        cell.backgroundColor = UIColor.systemMint
+
         cell.layer.borderWidth = 5
        
         return cell

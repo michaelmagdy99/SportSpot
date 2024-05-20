@@ -151,10 +151,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Up Coming Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text = "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.team2.layer.cornerRadius = cell.team1.bounds.width / 2
                 cell.team2.clipsToBounds = true
                 cell.team1.layer.cornerRadius = cell.team1.bounds.width / 2
@@ -208,10 +208,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Latest Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text =  "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.backgroundColor = UIColor.systemMint
                 
             }else{
@@ -259,10 +259,10 @@ class LeaguesDetailsViewController: UIViewController, UICollectionViewDataSource
                 cell.team1.image = UIImage(named: "Image")
                 cell.team2.image = UIImage(named: "Image")
                 cell.header.text = "No Up Coming Events"
-                cell.time.text = "N/A"
-                cell.date.text = "N/A"
-                cell.imgtitle.text = "N/A"
-                cell.club2Name.text = "N/A"
+                cell.time.text =  "no events"
+                cell.date.text =  "no events"
+                cell.imgtitle.text =  "no events"
+                cell.club2Name.text =  "no events"
                 cell.backgroundColor = UIColor.systemMint
                 
             }else{
